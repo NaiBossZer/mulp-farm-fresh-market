@@ -1,0 +1,122 @@
+{
+  "navbar": {
+    "brand": {
+      "title": "MAHIDOL UNIVERSITY",
+      "subtitle": "Smart Farm Storefront"
+    },
+    "nav": {
+      "home": "Home",
+      "subsystems": "Sub-Systems",
+      "smartFarm": "Smart Farm IoT System",
+      "smartFarmDesc": "Real-time smart farm tracking and management system",
+      "cleanEnergy": "Clean Energy Center",
+      "cleanEnergyDesc": "Solar energy and renewable energy monitoring system",
+      "rac": "RAC Research Center",
+      "racDesc": "Research and experimental database system",
+      "storefront": "Agricultural Store",
+      "storefrontDesc": "Order products, research items, and products from the center"
+    },
+    "search": {
+      "placeholder": "Search fresh produce..."
+    },
+    "buttons": {
+      "cart": "Cart",
+      "account": "Account"
+    }
+  },
+  "hero": {
+    "badge": "Research Center Direct",
+    "title": "Fresh Organic Produce directly from",
+    "titleHighlight": "Mahidol Smart Farm",
+    "subtitle": "Sustainably grown, precision-monitored, and delivered fresh. Supporting agricultural research while nourishing your table.",
+    "shopNow": "Shop Now",
+    "learnMore": "Learn More",
+    "features": {
+      "gap": "GAP Certified",
+      "iot": "IoT Monitored",
+      "fresh": "Fresh Harvest"
+    }
+  },
+  "catalog": {
+    "featured": "Featured Harvest",
+    "featuredDesc": "Fresh picks from the greenhouse",
+    "allProducts": "All Fresh Produce",
+    "searching": "Searching for",
+    "noResults": "No products match your search",
+    "products": "products",
+    "unit": "Per",
+    "viewProduct": "View Product",
+    "viewDetails": "View Details",
+    "gapCertified": "GAP Certified",
+    "harvest": "Harvest",
+    "plot": "Plot"
+  },
+  "product": {
+    "features": "Features",
+    "price": "Price",
+    "addToCart": "Add {quantity} to cart",
+    "quantity": "Quantity",
+    "backToMarket": "Back to marketplace",
+    "category": "Category",
+    "perUnit": "Per unit",
+    "freshFrom": "Fresh from",
+    "stock": "Stock",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "emptyDesc": "Add fresh produce from the marketplace to continue",
+    "browse": "Browse produce",
+    "items": "Cart Items",
+    "itemSelected": "item selected for checkout",
+    "continueShopping": "Continue shopping",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "continueToShipping": "Continue to Shipping",
+    "secureCheckout": "Secure checkout and traceable farm produce",
+    "steps": {
+      "cart": "Cart",
+      "shipping": "Shipping",
+      "payment": "Payment"
+    }
+  },
+  "shipping": {
+    "title": "Shipping Address",
+    "back": "Back to cart",
+    "next": "Continue to Payment",
+    "form": {
+      "name": "Full Name",
+      "phone": "Phone Number",
+      "address": "Address",
+      "province": "Province",
+      "district": "District",
+      "subdistrict": "Subdistrict",
+      "postalCode": "Postal Code",
+      "deliveryMethod": "Delivery Method",
+      "standard": "Standard Delivery (3-5 days)",
+      "express": "Express Delivery (1-2 days)"
+    }
+  },
+  "payment": {
+    "title": "Payment",
+    "back": "Back to Shipping",
+    "confirm": "Confirm Payment",
+    "uploadSlip": "Upload Payment Slip",
+    "bankInfo": "Bank Information",
+    "accountName": "Account Name",
+    "accountNumber": "Account Number",
+    "bank": "Bank",
+    "amount": "Amount",
+    "uploadInstructions": "Upload your transfer slip image",
+    "success": "Payment completed successfully!"
+  },
+  "language": {
+    "switch": "Switch Language",
+    "th": "ไทย",
+    "en": "English"
+  }
+}

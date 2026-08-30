@@ -1,0 +1,122 @@
+{
+  "navbar": {
+    "brand": {
+      "title": "มหาวิทยาลัยมหิดล",
+      "subtitle": "Smart Farm Storefront"
+    },
+    "nav": {
+      "home": "หน้าหลัก",
+      "subsystems": "ระบบศูนย์ย่อย",
+      "smartFarm": "ระบบ Smart Farm IoT",
+      "smartFarmDesc": "ระบบติดตามและจัดการฟาร์มอัจฉริยะแบบเรียลไทม์",
+      "cleanEnergy": "ศูนย์พลังงานสะอาด",
+      "cleanEnergyDesc": "ระบบมอนิเตอร์พลังงานแสงอาทิตย์และพลังงานทดแทน",
+      "rac": "ศูนย์วิจัย RAC",
+      "racDesc": "ระบบฐานข้อมูลงานวิจัยและทดลอง",
+      "storefront": "ร้านค้าผลผลิตเกษตร",
+      "storefrontDesc": "ระบบสั่งซื้อผลผลิต งานวิจัย และผลิตภัณฑ์จากศูนย์ฯ"
+    },
+    "search": {
+      "placeholder": "ค้นหาผลผลิตสดใหม่..."
+    },
+    "buttons": {
+      "cart": "ตะกร้า",
+      "account": "บัญชี"
+    }
+  },
+  "hero": {
+    "badge": "ศูนย์วิจัยตรงจากแหล่งผลิต",
+    "title": "ผลผลิตออร์แกนิกสดใหม่โดยตรงจาก",
+    "titleHighlight": "Mahidol Smart Farm",
+    "subtitle": "ปลูกอย่างยั่งยืน ตรวจวัดแม่นยำ และส่งถึงมือสดใหม่ สนับสนุนงานวิจัยทางการเกษตรพร้อมเสิร์ฟโต๊ะอาหารของคุณ",
+    "shopNow": "ช้อปเลย",
+    "learnMore": "เรียนรู้เพิ่มเติม",
+    "features": {
+      "gap": "มาตรฐาน GAP",
+      "iot": "ตรวจวัด IoT",
+      "fresh": "เก็บเกี่ยวสด"
+    }
+  },
+  "catalog": {
+    "featured": "ผลผลิตแนะนำ",
+    "featuredDesc": "สินค้าพิเศษจากโรงเรือน",
+    "allProducts": "ผลผลิตสดทั้งหมด",
+    "searching": "กำลังค้นหา",
+    "noResults": "ไม่พบสินค้าที่ตรงกับการค้นหา",
+    "products": "สินค้า",
+    "unit": "ต่อ",
+    "viewProduct": "ดูสินค้า",
+    "viewDetails": "ดูรายละเอียด",
+    "gapCertified": "มาตรฐาน GAP",
+    "harvest": "เก็บเกี่ยว",
+    "plot": "แปลง"
+  },
+  "product": {
+    "features": "คุณสมบัติ",
+    "price": "ราคา",
+    "addToCart": "เพิ่ม {quantity} ชิ้นลงตะกร้า",
+    "quantity": "จำนวน",
+    "backToMarket": "กลับไปที่ตลาด",
+    "category": "หมวดหมู่",
+    "perUnit": "ต่อหน่วย",
+    "freshFrom": "สดจาก",
+    "stock": "สต็อก",
+    "inStock": "มีสินค้า",
+    "outOfStock": "หมดสต็อก"
+  },
+  "cart": {
+    "title": "ตะกร้าสินค้า",
+    "empty": "ตะกร้าของคุณว่างเปล่า",
+    "emptyDesc": "เพิ่มผลผลิตสดจากตลาดเพื่อดำเนินการต่อ",
+    "browse": "เลือกช้อปสินค้า",
+    "items": "สินค้าในตะกร้า",
+    "itemSelected": "รายการที่เลือก",
+    "continueShopping": "ช้อปต่อ",
+    "orderSummary": "สรุปคำสั่งซื้อ",
+    "subtotal": "ยอดรวม",
+    "shipping": "ค่าจัดส่ง",
+    "total": "ยอดสุทธิ",
+    "continueToShipping": "ดำเนินการต่อไปยังการจัดส่ง",
+    "secureCheckout": "การชำระเงินที่ปลอดภัยและติดตามผลผลิตจากฟาร์มได้",
+    "steps": {
+      "cart": "ตะกร้า",
+      "shipping": "จัดส่ง",
+      "payment": "ชำระเงิน"
+    }
+  },
+  "shipping": {
+    "title": "ที่อยู่จัดส่ง",
+    "back": "กลับไปที่ตะกร้า",
+    "next": "ดำเนินการต่อไปยังการชำระเงิน",
+    "form": {
+      "name": "ชื่อ-นามสกุล",
+      "phone": "เบอร์โทรศัพท์",
+      "address": "ที่อยู่",
+      "province": "จังหวัด",
+      "district": "อำเภอ/เขต",
+      "subdistrict": "ตำบล/แขวง",
+      "postalCode": "รหัสไปรษณีย์",
+      "deliveryMethod": "วิธีการจัดส่ง",
+      "standard": "จัดส่งปกติ (3-5 วัน)",
+      "express": "จัดส่งด่วน (1-2 วัน)"
+    }
+  },
+  "payment": {
+    "title": "การชำระเงิน",
+    "back": "กลับไปที่ที่อยู่จัดส่ง",
+    "confirm": "ยืนยันการชำระเงิน",
+    "uploadSlip": "อัปโหลดสลิปโอนเงิน",
+    "bankInfo": "ข้อมูลธนาคาร",
+    "accountName": "ชื่อบัญชี",
+    "accountNumber": "เลขบัญชี",
+    "bank": "ธนาคาร",
+    "amount": "ยอดโอน",
+    "uploadInstructions": "อัปโหลดรูปสลิปการโอนเงินของคุณ",
+    "success": "ชำระเงินเรียบร้อยแล้ว!"
+  },
+  "language": {
+    "switch": "เปลี่ยนภาษา",
+    "th": "ไทย",
+    "en": "English"
+  }
+}
