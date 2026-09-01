@@ -63,7 +63,8 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
             <Button onClick={onBack} className="mt-5 bg-[#002D62]">Browse produce</Button>
           </Card>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+          /* ✅ เปลี่ยน layout จาก 2 คอลัมน์บน lg เป็น flex-col เพื่อไม่ให้ล้นขอบ Drawer */
+          <div className="flex flex-col gap-6">
             <Card className="rounded-2xl border-zinc-200">
               <CardHeader>
                 <CardTitle className="text-lg text-[#002D62]">Cart Items</CardTitle>
@@ -88,7 +89,14 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
                           <div className="flex items-center rounded-lg border border-zinc-200">
                             <button
                               type="button"
-                              onClick={() => onUpdateQuantity(item.product.id, Math.max(1, item.quantity - 1))}
+                              onClick={() => {
+                                /* ✅ ถ้าจำนวนเหลือ 1 แล้วกดลด จะลบสินค้าออกจากตะกร้าทันที */
+                                if (item.quantity > 1) {
+                                  onUpdateQuantity(item.product.id, item.quantity - 1);
+                                } else {
+                                  onRemoveItem(item.product.id);
+                                }
+                              }}
                               className="flex size-8 items-center justify-center text-[#002D62]"
                             >
                               <Minus className="size-3" />
@@ -111,7 +119,8 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
               </CardContent>
             </Card>
 
-            <Card className="h-fit rounded-2xl border-zinc-200 lg:sticky lg:top-6">
+            {/* ✅ ปรับเอา sticky ออกเพื่อการแสดงผลที่ถูกต้องในพื้นที่จำกัด */}
+            <Card className="h-fit rounded-2xl border-zinc-200">
               <CardHeader>
                 <CardTitle className="text-lg text-[#002D62]">Order Summary</CardTitle>
               </CardHeader>
