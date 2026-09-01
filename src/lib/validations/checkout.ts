@@ -13,11 +13,11 @@ export const shippingInfoSchema = z.object({
   district: z.string().min(2, "อำเภอ/เขตต้องระบุ"),
   province: z.string().min(2, "จังหวัดต้องระบุ"),
   postalCode: z.string().regex(/^\d{5}$/, "รหัสไปรษณีย์ต้อง 5 หลัก"),
-  deliveryMethod: z.enum(["standard", "express"], {
-    errorMap: () => ({ message: "วิธีการจัดส่งไม่ถูกต้อง" }),
+  deliveryMethod: z.enum(["standard", "express"] as const, {
+    message: "วิธีการจัดส่งไม่ถูกต้อง",
   }),
-  saveAddress: z.boolean().default(true),
-  billingSameAsShipping: z.boolean().default(true),
+  saveAddress: z.boolean(),
+  billingSameAsShipping: z.boolean(),
 });
 
 export type ShippingInfoInput = z.infer<typeof shippingInfoSchema>;
@@ -56,9 +56,9 @@ export const slipUploadSchema = z.object({
     .refine((file) => file instanceof File, "ต้องอัปโหลดไฟล์")
     .refine((file) => {
       const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
-      return allowedTypes.includes(file.type);
+      return allowedTypes.includes(file?.type);
     }, "ไฟล์ต้องเป็น PNG, JPG หรือ PDF")
-    .refine((file) => file.size <= 5 * 1024 * 1024, "ไฟล์ต้องไม่เกิน 5MB"),
+    .refine((file) => file?.size <= 5 * 1024 * 1024, "ไฟล์ต้องไม่เกิน 5MB"),
   idempotencyKey: z.string().uuid("รหัส idempotency ไม่ถูกต้อง"),
 });
 
@@ -91,7 +91,7 @@ export const updateOrderStatusSchema = z.object({
     "shipped",
     "delivered",
     "cancelled",
-  ], { errorMap: () => ({ message: "สถานะไม่ถูกต้อง" }) }),
+  ] as const, { message: "สถานะไม่ถูกต้อง" }),
   notes: z.string().optional(),
 });
 
@@ -103,8 +103,8 @@ export type UpdateOrderStatusInput = z.infer<typeof updateOrderStatusSchema>;
 
 export const manualReviewTransactionSchema = z.object({
   transactionId: z.string().uuid("รหัสธุรกรรมไม่ถูกต้อง"),
-  action: z.enum(["approve", "reject"], {
-    errorMap: () => ({ message: "การกระทำไม่ถูกต้อง" }),
+  action: z.enum(["approve", "reject"] as const, {
+    message: "การกระทำไม่ถูกต้อง",
   }),
   rejectionReason: z.string().optional(),
 });

@@ -280,7 +280,7 @@ function ShippingStep({
   onNext: () => void;
   onPrev: () => void;
 }) {
-  const subtotal = form.watch ? 0 : 0; // Will calculate from items context
+  const subtotal = 0; // Will calculate from items context
 
   return (
     <Form {...form}>
@@ -511,7 +511,7 @@ function PaymentStep({
               variant="ghost"
               size="sm"
               onClick={() => {
-                setSelectedFile(null);
+                onFileSelect(null as any);
                 if (fileInputRef.current) fileInputRef.current.value = "";
               }}
             >

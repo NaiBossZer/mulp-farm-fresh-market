@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { db } from "@/db";
-import { orders, orderItems, inventory, products, transactions, auditLogs } from "@/db/schema";
+import { orders, orderItems, inventory, products, auditLogs } from "@/db/schema";
 import { eq, and, desc, sql } from "drizzle-orm";
 import { createOrderSchema, type CreateOrderInput } from "@/lib/validations/checkout";
 import { randomUUID } from "crypto";
@@ -70,7 +70,13 @@ export const createOrder = createServerFn({ method: "POST" })
     });
 
     if (existingOrder) {
-      return { order: existingOrder, isDuplicate: true };
+      return {
+        order: {
+          ...existingOrder,
+          shippingAddress: existingOrder.shippingAddress as Record<string, any>,
+        },
+        isDuplicate: true,
+      };
     }
 
     // Calculate totals and check inventory
@@ -159,7 +165,13 @@ export const createOrder = createServerFn({ method: "POST" })
       changes: { orderNumber, total, items: orderItemsData },
     });
 
-    return { order: newOrder, isDuplicate: false };
+    return {
+      order: {
+        ...newOrder,
+        shippingAddress: newOrder.shippingAddress as Record<string, any>,
+      },
+      isDuplicate: false,
+    };
   });
 
 // ============================================
@@ -184,7 +196,10 @@ export const getOrderById = createServerFn({ method: "GET" })
       throw new Error("Order not found");
     }
 
-    return order;
+    return {
+      ...order,
+      shippingAddress: order.shippingAddress as Record<string, any>,
+    };
   });
 
 // ============================================
@@ -212,7 +227,10 @@ export const getUserOrders = createServerFn({ method: "GET" })
       offset,
     });
 
-    return userOrders;
+    return userOrders.map((order) => ({
+      ...order,
+      shippingAddress: order.shippingAddress as Record<string, any>,
+    }));
   });
 
 // ============================================
@@ -241,7 +259,10 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       changes: { status: data.status, notes: data.notes },
     });
 
-    return updatedOrder;
+    return {
+      ...updatedOrder,
+      shippingAddress: updatedOrder.shippingAddress as Record<string, any>,
+    };
   });
 
 // ============================================
@@ -297,5 +318,8 @@ export const cancelOrder = createServerFn({ method: "POST" })
       changes: { previousStatus: order.status },
     });
 
-    return cancelledOrder;
+    return {
+      ...cancelledOrder,
+      shippingAddress: cancelledOrder.shippingAddress as Record<string, any>,
+    };
   });

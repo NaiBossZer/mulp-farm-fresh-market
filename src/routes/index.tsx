@@ -5,7 +5,6 @@ import {
   MapPin, ChevronLeft, ChevronRight, Gauge
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import { SmartFarm3DGame } from "@/components/SmartFarm3DGame";
 
 // 1. ประกาศ Type ให้ TypeScript รู้จัก Custom Element <model-viewer>
 declare global {
@@ -497,7 +496,6 @@ function SmartFarmMediaSection() {
           ) : (
             /* TAB 2: WALKTHROUGH 3D GAME */
             <div className="w-full h-full relative">
-              <SmartFarm3DGame />
             </div>
           )}
 

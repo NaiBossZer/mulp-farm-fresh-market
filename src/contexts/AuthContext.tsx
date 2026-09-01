@@ -64,7 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithLine = async () => {
     return await supabase.auth.signInWithOAuth({
-      provider: "line",
+      provider: "line "as any,
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },

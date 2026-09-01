@@ -1,5 +1,4 @@
-import { pgTable, uuid, text, timestamp, integer, boolean, decimal, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
+import { pgTable, uuid, text, timestamp, integer, boolean, jsonb, index, uniqueIndex } from "drizzle-orm/pg-core";
 
 // ============================================
 // USERS & AUTH
@@ -33,7 +32,7 @@ export const products = pgTable("products", {
   image: text("image").notNull(),
   description: text("description").notNull(),
   descriptionTh: text("description_th").notNull(),
-  features: jsonb("features").$type<string[]>().notNull().default(sql`'[]'::jsonb`),
+  features: jsonb("features").$type<string[]>().notNull().default([]),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -66,13 +65,13 @@ export const lots = pgTable("lots", {
   plantingDate: timestamp("planting_date").notNull(),
   harvestDate: timestamp("harvest_date").notNull(),
   farmerId: uuid("farmer_id").notNull().references(() => users.id),
-  certifications: jsonb("certifications").$type<string[]>().notNull().default(sql`'[]'::jsonb),
+  certifications: jsonb("certifications").$type<string[]>().notNull().default([]),
   environmentalData: jsonb("environmental_data").$type<{
     temperature: number[];
     humidity: number[];
     soilMoisture: number[];
     timestamps: string[];
-  }>().notNull().default(sql`'{}'::jsonb`),
+  }>().notNull().default({ temperature: [], humidity: [], soilMoisture: [], timestamps: [] }),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -135,7 +134,12 @@ export const transactions = pgTable("transactions", {
     timestampValid: boolean;
     duplicateCheck: boolean;
     rejectionReason?: string;
-  }>().notNull().default(sql`'{}'::jsonb`),
+  }>().notNull().default({
+    amountMatch: false,
+    accountMatch: false,
+    timestampValid: false,
+    duplicateCheck: false,
+  }),
   verifiedAt: timestamp("verified_at"),
   verifiedBy: uuid("verified_by").references(() => users.id),
   idempotencyKey: text("idempotency_key").notNull().unique(),
@@ -174,7 +178,7 @@ export const subscriptionDeliveries = pgTable("subscription_deliveries", {
   subscriptionId: uuid("subscription_id").notNull().references(() => subscriptions.id, { onDelete: "cascade" }),
   deliveryDate: timestamp("delivery_date").notNull(),
   status: text("status").notNull().$type<"scheduled" | "skipped" | "processing" | "shipped" | "delivered">().default("scheduled"),
-  items: jsonb("items").$type<Array<{ productId: string; quantity: number }>>().notNull().default(sql`'[]'::jsonb`),
+  items: jsonb("items").$type<Array<{ productId: string; quantity: number }>>().notNull().default([]),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -193,7 +197,7 @@ export const auditLogs = pgTable("audit_logs", {
   action: text("action").notNull(),
   entityType: text("entity_type").notNull(), // "order", "transaction", "inventory", "subscription"
   entityId: uuid("entity_id").notNull(),
-  changes: jsonb("changes").notNull().default(sql`'{}'::jsonb`),
+  changes: jsonb("changes").notNull().default({}),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
