@@ -2,19 +2,19 @@ import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { X, ShoppingBag, Truck, CreditCard, CheckCircle2, ChevronLeft, ChevronRight, ShieldCheck } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { shippingInfoSchema, type ShippingInfoInput } from "@/lib/validations/checkout";
 import { useCreateOrder, useUploadSlip } from "@/lib/query-options";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import type { CartItem } from "../ecommerce.types";
+import { sendTelegramNotification } from "@/lib/telegram"; // ✅ นำเข้า Telegram Helper
 
 interface CheckoutModalProps {
   open: boolean;
@@ -97,13 +97,24 @@ export function CheckoutModal({ open, onClose, items }: CheckoutModalProps) {
         toast.success("สร้างออเดอร์สำเร็จ");
       }
 
+      // ✅ ส่งข้อมูลออเดอร์เข้า Telegram อัตโนมัติ
+      sendTelegramNotification({
+        ...data,
+        total,
+      });
+
       setStep("payment");
     } catch (error) {
       toast.error("ไม่สามารถสร้างออเดอร์ได้ กรุณาลองใหม่");
     }
   };
 
-  const handleFileSelect = (file: File) => {
+  // ✅ แก้ไข Type ให้รองรับ null และการล้างไฟล์
+  const handleFileSelect = (file: File | null) => {
+    if (!file) {
+      setSelectedFile(null);
+      return;
+    }
     const allowedTypes = ["image/png", "image/jpeg", "application/pdf"];
     if (!allowedTypes.includes(file.type)) {
       toast.error("ไฟล์ต้องเป็น PNG, JPG หรือ PDF");
@@ -150,7 +161,7 @@ export function CheckoutModal({ open, onClose, items }: CheckoutModalProps) {
   };
 
   const content = (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between border-b pb-4 mb-4">
         <div>
@@ -186,7 +197,7 @@ export function CheckoutModal({ open, onClose, items }: CheckoutModalProps) {
       <div className="flex-1 overflow-y-auto">
         {step === "cart" && <CartStep items={items} subtotal={subtotal} onNext={nextStep} />}
         {step === "shipping" && (
-          <ShippingStep form={form} shippingFee={shippingFee} onNext={nextStep} onPrev={prevStep} />
+          <ShippingStep form={form} onNext={handleCreateOrder} onPrev={prevStep} />
         )}
         {step === "payment" && (
           <PaymentStep
@@ -271,20 +282,17 @@ function CartStep({ items, subtotal, onNext }: { items: CartItem[]; subtotal: nu
 
 function ShippingStep({
   form,
-  shippingFee,
   onNext,
   onPrev,
 }: {
   form: ReturnType<typeof useForm<ShippingInfoInput>>;
-  shippingFee: number;
-  onNext: () => void;
+  onNext: (data: ShippingInfoInput) => void;
   onPrev: () => void;
 }) {
-  const subtotal = 0; // Will calculate from items context
-
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      {/* ✅ ผูก onSubmit เพื่อให้รองรับการกด Enter บนคีย์บอร์ด */}
+      <form onSubmit={form.handleSubmit(onNext)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -434,7 +442,7 @@ function ShippingStep({
           <Button type="button" variant="outline" onClick={onPrev} className="flex-1">
             ย้อนกลับ
           </Button>
-          <Button type="button" onClick={onNext} className="flex-1 bg-[#F2A900] text-[#002D62] font-bold">
+          <Button type="submit" className="flex-1 bg-[#F2A900] text-[#002D62] font-bold">
             ดำเนินการต่อ
           </Button>
         </div>
@@ -449,7 +457,6 @@ function ShippingStep({
 
 function PaymentStep({
   total,
-  orderId,
   selectedFile,
   onFileSelect,
   onUpload,
@@ -459,7 +466,7 @@ function PaymentStep({
   total: number;
   orderId: string | null;
   selectedFile: File | null;
-  onFileSelect: (file: File) => void;
+  onFileSelect: (file: File | null) => void;
   onUpload: () => void;
   onPrev: () => void;
   isUploading: boolean;
@@ -511,7 +518,7 @@ function PaymentStep({
               variant="ghost"
               size="sm"
               onClick={() => {
-                onFileSelect(null as any);
+                onFileSelect(null);
                 if (fileInputRef.current) fileInputRef.current.value = "";
               }}
             >
