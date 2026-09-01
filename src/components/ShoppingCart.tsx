@@ -19,8 +19,9 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <header className="bg-[#002D62] text-white">
+    /* ✅ แก้ไขเป็น h-screen overflow-y-auto pb-16 เพื่อเปิดใช้งาน Scrollbar บน TAB ขวา */
+    <div className="h-screen w-full overflow-y-auto bg-zinc-50 pb-16">
+      <header className="bg-[#002D62] text-white sticky top-0 z-10">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-5 sm:px-6 lg:px-8">
           <div>
             <div className="text-xs font-medium text-white/70">MAHIDOL SMART FARM</div>
@@ -63,7 +64,6 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
             <Button onClick={onBack} className="mt-5 bg-[#002D62]">Browse produce</Button>
           </Card>
         ) : (
-          /* ✅ เปลี่ยน layout จาก 2 คอลัมน์บน lg เป็น flex-col เพื่อไม่ให้ล้นขอบ Drawer */
           <div className="flex flex-col gap-6">
             <Card className="rounded-2xl border-zinc-200">
               <CardHeader>
@@ -90,7 +90,6 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
                             <button
                               type="button"
                               onClick={() => {
-                                /* ✅ ถ้าจำนวนเหลือ 1 แล้วกดลด จะลบสินค้าออกจากตะกร้าทันที */
                                 if (item.quantity > 1) {
                                   onUpdateQuantity(item.product.id, item.quantity - 1);
                                 } else {
@@ -119,7 +118,6 @@ export default function ShoppingCart({ items, onBack, onCheckout, onUpdateQuanti
               </CardContent>
             </Card>
 
-            {/* ✅ ปรับเอา sticky ออกเพื่อการแสดงผลที่ถูกต้องในพื้นที่จำกัด */}
             <Card className="h-fit rounded-2xl border-zinc-200">
               <CardHeader>
                 <CardTitle className="text-lg text-[#002D62]">Order Summary</CardTitle>
